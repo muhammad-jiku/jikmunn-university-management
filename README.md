@@ -1,1 +1,1 @@
-# jikmunn-student-management
+# jikmunn-university-management
