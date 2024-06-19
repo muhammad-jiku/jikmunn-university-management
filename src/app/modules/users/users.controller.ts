@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { errorlogger } from '../../../shared/logger'
 import usersService from './users.services'
 
 const createUser = async (req: Request, res: Response) => {
@@ -12,7 +13,7 @@ const createUser = async (req: Request, res: Response) => {
     })
   } catch (err) {
     if (err) {
-      console.log(err)
+      errorlogger.error(err)
     }
     res.status(400).json({
       sucess: false,

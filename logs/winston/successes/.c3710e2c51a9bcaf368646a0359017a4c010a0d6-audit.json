@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\.c3710e2c51a9bcaf368646a0359017a4c010a0d6-audit.json",
+    "files": [
+        {
+            "date": 1718776130484,
+            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-19-06-11-success.log",
+            "hash": "fd02022786edb6a23f68d47fc73bc9ffddbc3e54d0b182fda745e9f6f11d3ee1"
+        },
+        {
+            "date": 1718776952847,
+            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-19-06-12-success.log",
+            "hash": "ed82da69aa81e1c634b0cd0c3b896173e594f34d4baeef2f53bcd0a04753c3c6"
+        }
+    ],
+    "hashType": "sha256"
+}

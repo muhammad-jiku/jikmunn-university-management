@@ -58,6 +58,8 @@
     "tsconfig": "^7.0.0",
     "undici-types": "^5.26.5",
     "v8-compile-cache-lib": "^3.0.1",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0",
     "wrappy": "^1.0.2",
     "xtend": "^4.0.2",
     "yarn": "^1.22.22",
