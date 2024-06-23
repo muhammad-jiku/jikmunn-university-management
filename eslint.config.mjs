@@ -10,6 +10,7 @@ export default tseslint.config(
       ecmaVersion: 2021,
       globals: {
         myGlobalVariable: 'readonly',
+        process: 'readonly',
       },
     },
   },

@@ -27,6 +27,7 @@
     "glob": "^7.2.3",
     "glob-parent": "^5.1.2",
     "hasown": "^2.0.2",
+    "http-status": "^1.7.4",
     "inflight": "^1.0.6",
     "inherits": "^2.0.4",
     "is-binary-path": "^2.1.0",
@@ -63,7 +64,8 @@
     "wrappy": "^1.0.2",
     "xtend": "^4.0.2",
     "yarn": "^1.22.22",
-    "yn": "^3.1.1"
+    "yn": "^3.1.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.5.0",
