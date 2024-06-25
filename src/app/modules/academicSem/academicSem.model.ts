@@ -5,8 +5,8 @@ import {
   academicSemesterCodes,
   academicSemesterTitles,
   acdemicSemesterMonths,
-} from './academicSem.constant';
-import { IAcademicSemester } from './academicSem.interface';
+} from './academicSem.constants';
+import { IAcademicSemester } from './academicSem.interfaces';
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
   {

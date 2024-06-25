@@ -3,7 +3,7 @@ import {
   academicSemesterCodes,
   academicSemesterTitles,
   acdemicSemesterMonths,
-} from './academicSem.constant';
+} from './academicSem.constants';
 
 const createAcademicSemesterZodSchema = z.object({
   body: z.object({
@@ -62,7 +62,7 @@ const updateAcademicSemesterZodSchema = z
     },
   );
 
-export const AcademicSemesterValidation = {
+export const AcademicSemesterValidations = {
   createAcademicSemesterZodSchema,
   updateAcademicSemesterZodSchema,
 };

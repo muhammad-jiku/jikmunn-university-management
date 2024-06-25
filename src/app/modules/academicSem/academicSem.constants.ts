@@ -2,7 +2,7 @@ import {
   IAcademicSemesterCodes,
   IAcademicSemesterMonths,
   IAcademicSemesterTitles,
-} from './academicSem.interface';
+} from './academicSem.interfaces';
 
 export const academicSemesterTitles: IAcademicSemesterTitles[] = [
   'Autumn',
