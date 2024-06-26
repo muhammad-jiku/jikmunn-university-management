@@ -94,6 +94,21 @@
             "date": 1719331606615,
             "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\errors\\jikmunn-university-management-2024-25-06-22-error.log",
             "hash": "90ab2f9a8f994130a7ba3e8db420b7152a802c96dab8737cb40fe67e366f4ffc"
+        },
+        {
+            "date": 1719376560084,
+            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\errors\\jikmunn-university-management-2024-26-06-10-error.log",
+            "hash": "ea9db0b2d6fb10e310613ecd9ea493d093010197435fcbee88bc4e626fa9102c"
+        },
+        {
+            "date": 1719381253177,
+            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\errors\\jikmunn-university-management-2024-26-06-11-error.log",
+            "hash": "f0213950dccd49b39d7b6719dde64a8aded588588e1c2c681cf04e9a2c7496a4"
+        },
+        {
+            "date": 1719381652067,
+            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\errors\\jikmunn-university-management-2024-26-06-12-error.log",
+            "hash": "ea6a51cd1a4d184e4ad790c8ef8b0ef2d6da31a38afd58a4483be2f802650fe3"
         }
     ],
     "hashType": "sha256"
