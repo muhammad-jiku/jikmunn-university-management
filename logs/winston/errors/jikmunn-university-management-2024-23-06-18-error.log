@@ -1,1 +1,0 @@
-Sun Jun 23 2024 18:45:51 } [jikmunn-university-management] error: Failed to connect database The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
