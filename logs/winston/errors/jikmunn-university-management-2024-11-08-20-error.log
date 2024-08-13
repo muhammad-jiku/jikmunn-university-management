@@ -1,0 +1,2 @@
+Sun Aug 11 2024 20:8:8 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: E11000 duplicate key error collection: dataStorage.academicdepts index: title_1 dup key: { title: "Department of Bangla" }
+Sun Aug 11 2024 20:40:6 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: read ECONNRESET

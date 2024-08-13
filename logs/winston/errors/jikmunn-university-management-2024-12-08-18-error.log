@@ -1,0 +1,3 @@
+Mon Aug 12 2024 18:24:46 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Faculty validation failed: name.lastName: Path `lastName` is required.
+Mon Aug 12 2024 18:28:5 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: E11000 duplicate key error collection: dataStorage.faculties index: contactNo_1 dup key: { contactNo: "+8801800000114" }
+Mon Aug 12 2024 18:30:49 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: E11000 duplicate key error collection: dataStorage.faculties index: email_1 dup key: { email: "charlesxmen@gmail.com" }

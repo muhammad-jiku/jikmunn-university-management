@@ -1,2 +1,0 @@
-Sun Jun 30 2024 10:12:51 } [jikmunn-university-management] error: Transaction with { txnNumber: 1 } has been aborted.
-Sun Jun 30 2024 10:19:52 } [jikmunn-university-management] error: Attempted illegal state transition from [TRANSACTION_ABORTED] to [TRANSACTION_COMMITTED]

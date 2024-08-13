@@ -1,0 +1,6 @@
+Sun Aug 11 2024 12:10:43 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Academic semester is already exist !
+Sun Aug 11 2024 12:15:17 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Invalid semester code
+Sun Aug 11 2024 12:19:36 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Invalid semester code
+Sun Aug 11 2024 12:48:35 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Invalid semester code
+Sun Aug 11 2024 12:52:49 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: E11000 duplicate key error collection: dataStorage.academicfaculties index: title_1 dup key: { title: "FACULTY OF BUSINESS ADMINISTRATION AND ECONOMICS" }
+Sun Aug 11 2024 12:58:33 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: AcademicFaculty validation failed: title: Path `title` is required.
