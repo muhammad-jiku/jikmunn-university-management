@@ -1,90 +1,90 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 14
+  "keep": {
+    "days": true,
+    "amount": 14
+  },
+  "auditLog": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\.c3710e2c51a9bcaf368646a0359017a4c010a0d6-audit.json",
+  "files": [
+    {
+      "date": 1723354485974,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-11-success.log",
+      "hash": "64b1111cf0ed18b63a0a24a2df4d39556cf6aaada6aa4dabf597b06d808f520c"
     },
-    "auditLog": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\.c3710e2c51a9bcaf368646a0359017a4c010a0d6-audit.json",
-    "files": [
-        {
-            "date": 1723354485974,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-11-success.log",
-            "hash": "64b1111cf0ed18b63a0a24a2df4d39556cf6aaada6aa4dabf597b06d808f520c"
-        },
-        {
-            "date": 1723356518933,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-12-success.log",
-            "hash": "ce134b13572fd4a83f5305bc0326e4be3b266fc4690e1664b83964d217757d63"
-        },
-        {
-            "date": 1723359942782,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-13-success.log",
-            "hash": "4696626845bc35598d1b3dd561bf09d47b7ce30b71d623d5bbad3529c176d1e5"
-        },
-        {
-            "date": 1723383768939,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-19-success.log",
-            "hash": "83ed5a1aa1ee4d5c936074045403040838a7cf976d13da380c1b3599709f9552"
-        },
-        {
-            "date": 1723385164539,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-20-success.log",
-            "hash": "40cabd9184d6dfb696e0c190ff26cf1025e9332af129cb52768c31d7b56f5d45"
-        },
-        {
-            "date": 1723392149912,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-22-success.log",
-            "hash": "bd57baed9dfdc2bbc78644a2693d40b4f4034d53860850f2ba18b8a536c37686"
-        },
-        {
-            "date": 1723438032143,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-10-success.log",
-            "hash": "f94742cd31c5e66eb10d65875d7e95027f07bd0860356f19d8785b18faeb7d2a"
-        },
-        {
-            "date": 1723442936344,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-12-success.log",
-            "hash": "0f2589bf6434b3ea3e9679a9669ffc74414b470e12d3e1fdad5a98adfee586a9"
-        },
-        {
-            "date": 1723446080697,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-13-success.log",
-            "hash": "82681c23b991938f4ccb9ba88d57726eeb3bda75e337f519a912ae3bd7ff8b69"
-        },
-        {
-            "date": 1723465294945,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-18-success.log",
-            "hash": "ebda3845b1db6658a13883f62058a3acec34394d35b64716ca2e8deb4a1d62f1"
-        },
-        {
-            "date": 1723477207210,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-21-success.log",
-            "hash": "7ea3a98cc148980e75997597c8c339b8db524bde23dd861441a120fc4679d359"
-        },
-        {
-            "date": 1723481741968,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-22-success.log",
-            "hash": "9734b0a6d2a22442684da0a1d6437c3d2337768987ef13062229fac2890c3b80"
-        },
-        {
-            "date": 1723482276320,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-23-success.log",
-            "hash": "18549ee277d22a78d0676f74009a3c0213530b3afb49904d2b4ed3459f687aa7"
-        },
-        {
-            "date": 1723521237006,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-09-success.log",
-            "hash": "2aae9552162d485f8b2d7573de2d220c371efdf9b280c695111dcc3df60495f4"
-        },
-        {
-            "date": 1723524746843,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-10-success.log",
-            "hash": "cfa83deca1edc5b10e88ff77d0cbb86b4fcd88aa7af3f4b72fbab03657d9de7b"
-        },
-        {
-            "date": 1723526041237,
-            "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-11-success.log",
-            "hash": "a8ef8f5c03ee250b7841ac34752941a06781cd6d9deefe12f8fc4cc16682855b"
-        }
-    ],
-    "hashType": "sha256"
+    {
+      "date": 1723356518933,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-12-success.log",
+      "hash": "ce134b13572fd4a83f5305bc0326e4be3b266fc4690e1664b83964d217757d63"
+    },
+    {
+      "date": 1723359942782,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-13-success.log",
+      "hash": "4696626845bc35598d1b3dd561bf09d47b7ce30b71d623d5bbad3529c176d1e5"
+    },
+    {
+      "date": 1723383768939,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-19-success.log",
+      "hash": "83ed5a1aa1ee4d5c936074045403040838a7cf976d13da380c1b3599709f9552"
+    },
+    {
+      "date": 1723385164539,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-20-success.log",
+      "hash": "40cabd9184d6dfb696e0c190ff26cf1025e9332af129cb52768c31d7b56f5d45"
+    },
+    {
+      "date": 1723392149912,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-11-08-22-success.log",
+      "hash": "bd57baed9dfdc2bbc78644a2693d40b4f4034d53860850f2ba18b8a536c37686"
+    },
+    {
+      "date": 1723438032143,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-10-success.log",
+      "hash": "f94742cd31c5e66eb10d65875d7e95027f07bd0860356f19d8785b18faeb7d2a"
+    },
+    {
+      "date": 1723442936344,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-12-success.log",
+      "hash": "0f2589bf6434b3ea3e9679a9669ffc74414b470e12d3e1fdad5a98adfee586a9"
+    },
+    {
+      "date": 1723446080697,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-13-success.log",
+      "hash": "82681c23b991938f4ccb9ba88d57726eeb3bda75e337f519a912ae3bd7ff8b69"
+    },
+    {
+      "date": 1723465294945,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-18-success.log",
+      "hash": "ebda3845b1db6658a13883f62058a3acec34394d35b64716ca2e8deb4a1d62f1"
+    },
+    {
+      "date": 1723477207210,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-21-success.log",
+      "hash": "7ea3a98cc148980e75997597c8c339b8db524bde23dd861441a120fc4679d359"
+    },
+    {
+      "date": 1723481741968,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-22-success.log",
+      "hash": "9734b0a6d2a22442684da0a1d6437c3d2337768987ef13062229fac2890c3b80"
+    },
+    {
+      "date": 1723482276320,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-12-08-23-success.log",
+      "hash": "18549ee277d22a78d0676f74009a3c0213530b3afb49904d2b4ed3459f687aa7"
+    },
+    {
+      "date": 1723521237006,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-09-success.log",
+      "hash": "2aae9552162d485f8b2d7573de2d220c371efdf9b280c695111dcc3df60495f4"
+    },
+    {
+      "date": 1723524746843,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-10-success.log",
+      "hash": "cfa83deca1edc5b10e88ff77d0cbb86b4fcd88aa7af3f4b72fbab03657d9de7b"
+    },
+    {
+      "date": 1723526041237,
+      "name": "D:\\_my_portfolio_\\Backend\\1. University Management Program\\jikmunn-university-management\\logs\\winston\\successes\\jikmunn-university-management-2024-13-08-11-success.log",
+      "hash": "a8ef8f5c03ee250b7841ac34752941a06781cd6d9deefe12f8fc4cc16682855b"
+    }
+  ],
+  "hashType": "sha256"
 }
