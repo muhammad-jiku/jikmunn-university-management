@@ -1,19 +1,30 @@
 import express from 'express';
+import { USER_ROLES } from '../../../enums/users';
+import { auth } from '../../middlewares/auth';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { FacultyControllers } from './faculty.controllers';
-import { FacultydentValidaions } from './faculty.validations';
+import { FacultyValidaions } from './faculty.validations';
 
 const router = express.Router();
 
 router
   .route('/:id')
-  .get(FacultyControllers.getSingleFaculty)
+  .get(
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
+    FacultyControllers.getFaculty,
+  )
   .patch(
-    validateRequest(FacultydentValidaions.updateFacultyZodSchema),
+    validateRequest(FacultyValidaions.updateFacultyZodSchema),
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
     FacultyControllers.updateFaculty,
   )
-  .delete(FacultyControllers.deleteFaculty);
+  .delete(auth(USER_ROLES.SUPER_ADMIN), FacultyControllers.deleteFaculty);
 
-router.route('/').get(FacultyControllers.getAllFaculties);
+router
+  .route('/')
+  .get(
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
+    FacultyControllers.getAllFaculties,
+  );
 
 export const FacultyRoutes = router;

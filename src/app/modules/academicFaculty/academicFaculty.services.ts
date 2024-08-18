@@ -1,5 +1,7 @@
+import httpStatus from 'http-status';
 import { SortOrder } from 'mongoose';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import ApiError from '../../../errors/ApiError';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { academicFacultySearchableFields } from './academicFaculty.constants';
@@ -9,7 +11,7 @@ import {
 } from './academicFaculty.interfaces';
 import { AcademicFaculty } from './academicFaculty.model';
 
-const createFaculty = async (
+const createAcademicFaculty = async (
   payload: IAcademicFaculty,
 ): Promise<IAcademicFaculty> => {
   const result = await AcademicFaculty.create(payload);
@@ -17,7 +19,7 @@ const createFaculty = async (
   return result;
 };
 
-const getAllFaculties = async (
+const getAllAcademicFaculties = async (
   filters: IAcademicFacultyFilters,
   paginationOptions: IPaginationOptions,
 ): Promise<IGenericResponse<IAcademicFaculty[]>> => {
@@ -70,7 +72,7 @@ const getAllFaculties = async (
   };
 };
 
-const getSingleFaculty = async (
+const getAcademicFaculty = async (
   id: string,
 ): Promise<IAcademicFaculty | null> => {
   const result = await AcademicFaculty.findById(id);
@@ -78,10 +80,21 @@ const getSingleFaculty = async (
   return result;
 };
 
-const updateSingleFaculty = async (
+const updateAcademicFaculty = async (
   id: string,
   payload: Partial<IAcademicFaculty>,
 ): Promise<IAcademicFaculty | null> => {
+  // Check if the title is unique
+  if (payload.title) {
+    const isUniqueTitle = await AcademicFaculty.findOne({
+      title: payload.title,
+    });
+    if (isUniqueTitle) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'This title already exists!');
+    }
+  }
+
+  // Update the academic faculty document
   const result = await AcademicFaculty.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
@@ -89,7 +102,7 @@ const updateSingleFaculty = async (
   return result;
 };
 
-const deleteSingleFaculty = async (
+const deleteAcademicFaculty = async (
   id: string,
 ): Promise<IAcademicFaculty | null> => {
   const result = await AcademicFaculty.findByIdAndDelete(id);
@@ -98,9 +111,9 @@ const deleteSingleFaculty = async (
 };
 
 export const AcademicFacultyServices = {
-  createFaculty,
-  getSingleFaculty,
-  getAllFaculties,
-  updateSingleFaculty,
-  deleteSingleFaculty,
+  createAcademicFaculty,
+  getAllAcademicFaculties,
+  getAcademicFaculty,
+  updateAcademicFaculty,
+  deleteAcademicFaculty,
 };

@@ -10,9 +10,14 @@ import { AdminServices } from './admin.services';
 
 const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, adminFilterableFields);
-  if (filters.bloodGroup) {
-    filters.bloodGroup = (filters.bloodGroup as string).replace(/ /g, '+');
-  }
+
+  const filterFields = ['bloodGroup', 'contactNo', 'emergencyContactNo'];
+  filterFields.forEach(field => {
+    if (filters[field]) {
+      filters[field] = (filters[field] as string).replace(/ /g, '+');
+    }
+  });
+
   const paginationOptions = pick(req.query, paginationFields);
 
   const result = await AdminServices.getAllAdmins(filters, paginationOptions);
@@ -26,10 +31,10 @@ const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleAdmin = catchAsync(async (req: Request, res: Response) => {
+const getAdmin = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await AdminServices.getSingleAdmin(id);
+  const result = await AdminServices.getAdmin(id);
 
   sendResponse<IAdmin>(res, {
     statusCode: httpStatus.OK,
@@ -68,7 +73,7 @@ const deleteAdmin = catchAsync(async (req: Request, res: Response) => {
 
 export const AdminControllers = {
   getAllAdmins,
-  getSingleAdmin,
+  getAdmin,
   updateAdmin,
   deleteAdmin,
 };

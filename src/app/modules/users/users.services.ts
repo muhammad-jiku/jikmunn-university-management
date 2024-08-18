@@ -24,7 +24,7 @@ const createStudent = async (
 ): Promise<IUser | null> => {
   // user password
   if (!user.password) {
-    user.password = config.default_student_pass as string;
+    user.password = config.default.student_pass as string;
   }
 
   // user role
@@ -89,7 +89,7 @@ const createFaculty = async (
 ): Promise<IUser | null> => {
   // user password
   if (!user.password) {
-    user.password = config.default_faculty_pass as string;
+    user.password = config.default.faculty_pass as string;
   }
 
   // user role
@@ -148,7 +148,7 @@ const createAdmin = async (
 ): Promise<IUser | null> => {
   // user password
   if (!user.password) {
-    user.password = config.default_admin_pass as string;
+    user.password = config.default.admin_pass as string;
   }
 
   // user role

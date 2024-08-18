@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import mongoose, { SortOrder } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { User } from '../users/users.model';
@@ -66,7 +66,7 @@ const getAllAdmins = async (
   };
 };
 
-const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
+const getAdmin = async (id: string): Promise<IAdmin | null> => {
   const result = await Admin.findOne({ id }).populate('managementDept');
 
   return result;
@@ -76,23 +76,48 @@ const updateAdmin = async (
   id: string,
   payload: Partial<IAdmin>,
 ): Promise<IAdmin | null> => {
-  const isExist = await Admin.findOne({ id });
-
-  if (!isExist) {
+  // Check if the admin exists
+  const existingAdmin = await Admin.findOne({ id });
+  if (!existingAdmin) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Admin information not found!');
   }
 
   const { name, ...adminData } = payload;
 
+  // Prepare conditions for checking unique fields
+  const uniqueConditions = [];
+  if (adminData.id) {
+    uniqueConditions.push({ id: adminData.id });
+  }
+  if (adminData.email) {
+    uniqueConditions.push({ email: adminData.email });
+  }
+  if (adminData.contactNo) {
+    uniqueConditions.push({ contactNo: adminData.contactNo });
+  }
+
+  // Check for uniqueness of fields
+  if (uniqueConditions.length > 0) {
+    const isDuplicate = await Admin.findOne({ $or: uniqueConditions });
+    if (isDuplicate) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        'Please check the data, it seems like value of the fields that you provided are already exists!',
+      );
+    }
+  }
+
+  // Prepare update data
   const updatedAdminData: Partial<IAdmin> = { ...adminData };
 
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
-      const nameKey = `name.${key}` as keyof Partial<IAdmin>; // `name.firstName`
+      const nameKey = `name.${key}` as keyof Partial<IAdmin>;
       (updatedAdminData as any)[nameKey] = name[key as keyof typeof name];
     });
   }
 
+  // Update and return the admin document
   const result = await Admin.findOneAndUpdate({ id }, updatedAdminData, {
     new: true,
   }).populate('managementDept');
@@ -133,7 +158,7 @@ const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
 
 export const AdminServices = {
   getAllAdmins,
-  getSingleAdmin,
+  getAdmin,
   updateAdmin,
   deleteAdmin,
 };

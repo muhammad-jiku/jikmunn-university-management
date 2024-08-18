@@ -1,4 +1,6 @@
 import express from 'express';
+import { USER_ROLES } from '../../../enums/users';
+import { auth } from '../../middlewares/auth';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { AcademicFacultyControllers } from './academicFaculty.controllers';
 import { AcademicFacultyValidations } from './academicFaculty.validations';
@@ -9,18 +11,26 @@ router
   .route('/create')
   .post(
     validateRequest(AcademicFacultyValidations.createAcademicFacultyZodSchema),
-    AcademicFacultyControllers.createFaculty,
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
+    AcademicFacultyControllers.createAcademicFaculty,
   );
 
 router
   .route('/:id')
-  .get(AcademicFacultyControllers.getSingleFaculty)
+  .get(
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
+    AcademicFacultyControllers.getAcademicFaculty,
+  )
   .patch(
     validateRequest(AcademicFacultyValidations.updateAcademicFacultyZodSchema),
-    AcademicFacultyControllers.updateSingleFaculty,
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
+    AcademicFacultyControllers.updateAcademicFaculty,
   )
-  .delete(AcademicFacultyControllers.deleteSingleFaculty);
+  .delete(
+    auth(USER_ROLES.SUPER_ADMIN),
+    AcademicFacultyControllers.deleteAcademicFaculty,
+  );
 
-router.route('/').get(AcademicFacultyControllers.getAllFaculties);
+router.route('/').get(AcademicFacultyControllers.getAllAcademicFaculties);
 
 export const AcademicFacultyRoutes = router;

@@ -10,9 +10,14 @@ import { StudentServices } from './students.services';
 
 const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, studentFilterableFields);
-  if (filters.bloodGroup) {
-    filters.bloodGroup = (filters.bloodGroup as string).replace(/ /g, '+');
-  }
+
+  const filterFields = ['bloodGroup', 'contactNo', 'emergencyContactNo'];
+  filterFields.forEach(field => {
+    if (filters[field]) {
+      filters[field] = (filters[field] as string).replace(/ /g, '+');
+    }
+  });
+
   const paginationOptions = pick(req.query, paginationFields);
 
   const result = await StudentServices.getAllStudents(
@@ -29,10 +34,10 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
+const getStudent = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await StudentServices.getSingleStudent(id);
+  const result = await StudentServices.getStudent(id);
 
   sendResponse<IStudent>(res, {
     statusCode: httpStatus.OK,
@@ -71,7 +76,7 @@ const deleteStudent = catchAsync(async (req: Request, res: Response) => {
 
 export const StudentControllers = {
   getAllStudents,
-  getSingleStudent,
+  getStudent,
   updateStudent,
   deleteStudent,
 };

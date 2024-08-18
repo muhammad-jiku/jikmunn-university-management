@@ -8,22 +8,44 @@ import { academicFacultyFilterableFields } from './academicFaculty.constants';
 import { IAcademicFaculty } from './academicFaculty.interfaces';
 import { AcademicFacultyServices } from './academicFaculty.services';
 
-const createFaculty = catchAsync(async (req: Request, res: Response) => {
-  const { ...academicFacultyData } = req.body;
-  const result =
-    await AcademicFacultyServices.createFaculty(academicFacultyData);
+const createAcademicFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { ...academicFacultyData } = req.body;
+    const result =
+      await AcademicFacultyServices.createAcademicFaculty(academicFacultyData);
 
-  sendResponse<IAcademicFaculty>(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: 'Academic Faculty created successfully!',
-    data: result,
-  });
-});
+    sendResponse<IAcademicFaculty>(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: 'Academic Faculty created successfully!',
+      data: result,
+    });
+  },
+);
 
-const getSingleFaculty = catchAsync(async (req: Request, res: Response) => {
+const getAllAcademicFaculties = catchAsync(
+  async (req: Request, res: Response) => {
+    const filters = pick(req.query, academicFacultyFilterableFields);
+    const paginationOptions = pick(req.query, paginationFields);
+
+    const result = await AcademicFacultyServices.getAllAcademicFaculties(
+      filters,
+      paginationOptions,
+    );
+
+    sendResponse<IAcademicFaculty[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'All academic Faculty data retrieved successfully!',
+      meta: result.meta,
+      data: result.data,
+    });
+  },
+);
+
+const getAcademicFaculty = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await AcademicFacultyServices.getSingleFaculty(id);
+  const result = await AcademicFacultyServices.getAcademicFaculty(id);
 
   sendResponse<IAcademicFaculty>(res, {
     statusCode: httpStatus.OK,
@@ -33,58 +55,44 @@ const getSingleFaculty = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllFaculties = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, academicFacultyFilterableFields);
-  const paginationOptions = pick(req.query, paginationFields);
+const updateAcademicFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const updatedData = req.body;
 
-  const result = await AcademicFacultyServices.getAllFaculties(
-    filters,
-    paginationOptions,
-  );
+    const result = await AcademicFacultyServices.updateAcademicFaculty(
+      id,
+      updatedData,
+    );
 
-  sendResponse<IAcademicFaculty[]>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'All academic Faculty data retrieved successfully!',
-    meta: result.meta,
-    data: result.data,
-  });
-});
+    sendResponse<IAcademicFaculty>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic faculty data updated successfully!',
+      data: result,
+    });
+  },
+);
 
-const updateSingleFaculty = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const updatedData = req.body;
+const deleteAcademicFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
 
-  const result = await AcademicFacultyServices.updateSingleFaculty(
-    id,
-    updatedData,
-  );
+    const result = await AcademicFacultyServices.deleteAcademicFaculty(id);
 
-  sendResponse<IAcademicFaculty>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Academic faculty data updated successfully!',
-    data: result,
-  });
-});
-
-const deleteSingleFaculty = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-
-  const result = await AcademicFacultyServices.deleteSingleFaculty(id);
-
-  sendResponse<IAcademicFaculty>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Academic faculty data deleted successfully!',
-    data: result,
-  });
-});
+    sendResponse<IAcademicFaculty>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic faculty data deleted successfully!',
+      data: result,
+    });
+  },
+);
 
 export const AcademicFacultyControllers = {
-  createFaculty,
-  getAllFaculties,
-  getSingleFaculty,
-  updateSingleFaculty,
-  deleteSingleFaculty,
+  createAcademicFaculty,
+  getAllAcademicFaculties,
+  getAcademicFaculty,
+  updateAcademicFaculty,
+  deleteAcademicFaculty,
 };

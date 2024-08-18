@@ -1,5 +1,7 @@
+import httpStatus from 'http-status';
 import { SortOrder } from 'mongoose';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import ApiError from '../../../errors/ApiError';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { managementDeptSearchableFields } from './managementDept.constants';
@@ -70,7 +72,7 @@ const getAllManagementDepts = async (
   };
 };
 
-const getSingleManagementDept = async (
+const getManagementDept = async (
   id: string,
 ): Promise<IManagementDept | null> => {
   const result = await ManagementDept.findById(id);
@@ -82,6 +84,17 @@ const updateManagementDept = async (
   id: string,
   payload: Partial<IManagementDept>,
 ): Promise<IManagementDept | null> => {
+  // Check if the title is unique
+  if (payload.title) {
+    const isUniqueTitle = await ManagementDept.findOne({
+      title: payload.title,
+    });
+    if (isUniqueTitle) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'This title already exists!');
+    }
+  }
+
+  // Update the management department document
   const result = await ManagementDept.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
@@ -100,7 +113,7 @@ const deleteManagementDept = async (
 export const ManagementDeptServices = {
   createManagementDept,
   getAllManagementDepts,
-  getSingleManagementDept,
+  getManagementDept,
   updateManagementDept,
   deleteManagementDept,
 };

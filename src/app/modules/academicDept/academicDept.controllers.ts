@@ -20,6 +20,7 @@ const createAcademicDept = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
 const getAllAcademicDepts = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, academicDeptFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
@@ -38,19 +39,17 @@ const getAllAcademicDepts = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleAcademicDept = catchAsync(
-  async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const result = await AcademicDeptServices.getSingleAcademicDept(id);
+const getAcademicDept = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await AcademicDeptServices.getAcademicDept(id);
 
-    sendResponse<IAcademicDept>(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Academic Department data retrieved successfully!',
-      data: result,
-    });
-  },
-);
+  sendResponse<IAcademicDept>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic Department data retrieved successfully!',
+    data: result,
+  });
+});
 
 const updateAcademicDept = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -82,7 +81,7 @@ const deleteAcademicDept = catchAsync(async (req: Request, res: Response) => {
 export const AcademicDeptControllers = {
   createAcademicDept,
   getAllAcademicDepts,
-  getSingleAcademicDept,
+  getAcademicDept,
   updateAcademicDept,
   deleteAcademicDept,
 };

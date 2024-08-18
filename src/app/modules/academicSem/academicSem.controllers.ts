@@ -8,9 +8,9 @@ import { academicSemFilterableFields } from './academicSem.constants';
 import { IAcademicSem } from './academicSem.interfaces';
 import { AcademicSemServices } from './academicSem.services';
 
-const createSem = catchAsync(async (req: Request, res: Response) => {
+const createAcademicSem = catchAsync(async (req: Request, res: Response) => {
   const { ...academicSemData } = req.body;
-  const result = await AcademicSemServices.createSem(academicSemData);
+  const result = await AcademicSemServices.createAcademicSem(academicSemData);
 
   sendResponse<IAcademicSem>(res, {
     statusCode: httpStatus.CREATED,
@@ -20,23 +20,11 @@ const createSem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleSem = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const result = await AcademicSemServices.getSingleSem(id);
-
-  sendResponse<IAcademicSem>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Academic semester data retrieved successfully!',
-    data: result,
-  });
-});
-
-const getAllSems = catchAsync(async (req: Request, res: Response) => {
+const getAllAcademicSems = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, academicSemFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
 
-  const result = await AcademicSemServices.getAllSems(
+  const result = await AcademicSemServices.getAllAcademicSems(
     filters,
     paginationOptions,
   );
@@ -50,11 +38,23 @@ const getAllSems = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateSingleSem = catchAsync(async (req: Request, res: Response) => {
+const getAcademicSem = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await AcademicSemServices.getAcademicSem(id);
+
+  sendResponse<IAcademicSem>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic semester data retrieved successfully!',
+    data: result,
+  });
+});
+
+const updateAcademicSem = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
 
-  const result = await AcademicSemServices.updateSingleSem(id, updatedData);
+  const result = await AcademicSemServices.updateAcademicSem(id, updatedData);
 
   sendResponse<IAcademicSem>(res, {
     statusCode: httpStatus.OK,
@@ -64,10 +64,10 @@ const updateSingleSem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const deleteSingleSem = catchAsync(async (req: Request, res: Response) => {
+const deleteAcademicSem = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await AcademicSemServices.deleteSingleSem(id);
+  const result = await AcademicSemServices.deleteAcademicSem(id);
 
   sendResponse<IAcademicSem>(res, {
     statusCode: httpStatus.OK,
@@ -78,9 +78,9 @@ const deleteSingleSem = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const AcademicSemControllers = {
-  createSem,
-  getAllSems,
-  getSingleSem,
-  updateSingleSem,
-  deleteSingleSem,
+  createAcademicSem,
+  getAllAcademicSems,
+  getAcademicSem,
+  updateAcademicSem,
+  deleteAcademicSem,
 };
