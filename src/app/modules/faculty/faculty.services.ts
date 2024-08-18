@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import mongoose, { SortOrder } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { User } from '../users/users.model';
@@ -67,7 +67,7 @@ const getAllFaculties = async (
   };
 };
 
-const getSingleFaculty = async (id: string): Promise<IFaculty | null> => {
+const getFaculty = async (id: string): Promise<IFaculty | null> => {
   const result = await Faculty.findOne({ id })
     .populate('academicFaculty')
     .populate('academicDept');
@@ -79,23 +79,48 @@ const updateFaculty = async (
   id: string,
   payload: Partial<IFaculty>,
 ): Promise<IFaculty | null> => {
-  const isExist = await Faculty.findOne({ id });
-
-  if (!isExist) {
+  // Check if the faculty exists
+  const existingFaculty = await Faculty.findOne({ id });
+  if (!existingFaculty) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Faculty information not found!');
   }
 
   const { name, ...facultyData } = payload;
 
+  // Prepare conditions for checking unique fields
+  const uniqueConditions = [];
+  if (facultyData.id) {
+    uniqueConditions.push({ id: facultyData.id });
+  }
+  if (facultyData.email) {
+    uniqueConditions.push({ email: facultyData.email });
+  }
+  if (facultyData.contactNo) {
+    uniqueConditions.push({ contactNo: facultyData.contactNo });
+  }
+
+  // Check for uniqueness of fields
+  if (uniqueConditions.length > 0) {
+    const isDuplicate = await Faculty.findOne({ $or: uniqueConditions });
+    if (isDuplicate) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        'Please check the data, it seems like value of the fields that you provided are already exists!',
+      );
+    }
+  }
+
+  // Prepare update data
   const updatedFacultyData: Partial<IFaculty> = { ...facultyData };
 
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
-      const nameKey = `name.${key}` as keyof Partial<IFaculty>; // `name.firstName`
+      const nameKey = `name.${key}` as keyof Partial<IFaculty>;
       (updatedFacultyData as any)[nameKey] = name[key as keyof typeof name];
     });
   }
 
+  // Update and return the faculty document
   const result = await Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
     new: true,
   })
@@ -138,7 +163,7 @@ const deleteFaculty = async (id: string): Promise<IFaculty | null> => {
 
 export const FacultyServices = {
   getAllFaculties,
-  getSingleFaculty,
+  getFaculty,
   updateFaculty,
   deleteFaculty,
 };

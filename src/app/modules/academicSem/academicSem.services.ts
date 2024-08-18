@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import { SortOrder } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import {
@@ -11,7 +11,9 @@ import {
 import { IAcademicSem, IAcademicSemFilters } from './academicSem.interfaces';
 import { AcademicSem } from './academicSem.model';
 
-const createSem = async (payload: IAcademicSem): Promise<IAcademicSem> => {
+const createAcademicSem = async (
+  payload: IAcademicSem,
+): Promise<IAcademicSem> => {
   if (academicSemTitleCodeMapper[payload.title] !== payload.code) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid semester code');
   }
@@ -20,7 +22,7 @@ const createSem = async (payload: IAcademicSem): Promise<IAcademicSem> => {
   return result;
 };
 
-const getAllSems = async (
+const getAllAcademicSems = async (
   filters: IAcademicSemFilters,
   paginationOptions: IPaginationOptions,
 ): Promise<IGenericResponse<IAcademicSem[]>> => {
@@ -73,13 +75,13 @@ const getAllSems = async (
   };
 };
 
-const getSingleSem = async (id: string): Promise<IAcademicSem | null> => {
+const getAcademicSem = async (id: string): Promise<IAcademicSem | null> => {
   const result = await AcademicSem.findById(id);
 
   return result;
 };
 
-const updateSingleSem = async (
+const updateAcademicSem = async (
   id: string,
   payload: Partial<IAcademicSem>,
 ): Promise<IAcademicSem | null> => {
@@ -97,16 +99,16 @@ const updateSingleSem = async (
   return result;
 };
 
-const deleteSingleSem = async (id: string): Promise<IAcademicSem | null> => {
+const deleteAcademicSem = async (id: string): Promise<IAcademicSem | null> => {
   const result = await AcademicSem.findByIdAndDelete(id);
 
   return result;
 };
 
 export const AcademicSemServices = {
-  createSem,
-  getSingleSem,
-  getAllSems,
-  updateSingleSem,
-  deleteSingleSem,
+  createAcademicSem,
+  getAllAcademicSems,
+  getAcademicSem,
+  updateAcademicSem,
+  deleteAcademicSem,
 };

@@ -41,19 +41,17 @@ const getAllManagementDepts = catchAsync(
   },
 );
 
-const getSingleManagementDept = catchAsync(
-  async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const result = await ManagementDeptServices.getSingleManagementDept(id);
+const getManagementDept = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await ManagementDeptServices.getManagementDept(id);
 
-    sendResponse<IManagementDept>(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Department data retrieved successfully!',
-      data: result,
-    });
-  },
-);
+  sendResponse<IManagementDept>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Department data retrieved successfully!',
+    data: result,
+  });
+});
 
 const updateManagementDept = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -88,7 +86,7 @@ const deleteManagementDept = catchAsync(async (req: Request, res: Response) => {
 export const ManagementDeptControllers = {
   createManagementDept,
   getAllManagementDepts,
-  getSingleManagementDept,
+  getManagementDept,
   updateManagementDept,
   deleteManagementDept,
 };

@@ -1,4 +1,6 @@
 import express from 'express';
+import { USER_ROLES } from '../../../enums/users';
+import { auth } from '../../middlewares/auth';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { AcademicSemControllers } from './academicSem.controllers';
 import { AcademicSemValidations } from './academicSem.validations';
@@ -9,18 +11,31 @@ router
   .route('/create')
   .post(
     validateRequest(AcademicSemValidations.createAcademicSemZodSchema),
-    AcademicSemControllers.createSem,
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
+    AcademicSemControllers.createAcademicSem,
   );
 
 router
   .route('/:id')
-  .get(AcademicSemControllers.getSingleSem)
+  .get(
+    auth(
+      USER_ROLES.SUPER_ADMIN,
+      USER_ROLES.ADMIN,
+      USER_ROLES.FACULTY,
+      USER_ROLES.STUDENT,
+    ),
+    AcademicSemControllers.getAcademicSem,
+  )
   .patch(
     validateRequest(AcademicSemValidations.updateAcademicSemZodSchema),
-    AcademicSemControllers.updateSingleSem,
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
+    AcademicSemControllers.updateAcademicSem,
   )
-  .delete(AcademicSemControllers.deleteSingleSem);
+  .delete(
+    auth(USER_ROLES.SUPER_ADMIN),
+    AcademicSemControllers.deleteAcademicSem,
+  );
 
-router.route('/').get(AcademicSemControllers.getAllSems);
+router.route('/').get(AcademicSemControllers.getAllAcademicSems);
 
 export const AcademicSemRoutes = router;

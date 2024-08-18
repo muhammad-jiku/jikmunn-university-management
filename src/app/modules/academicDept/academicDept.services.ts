@@ -1,5 +1,7 @@
+import httpStatus from 'http-status';
 import { SortOrder } from 'mongoose';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+import ApiError from '../../../errors/ApiError';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { academicDeptSearchableFields } from './academicDept.constants';
@@ -68,9 +70,7 @@ const getAllAcademicDepts = async (
   };
 };
 
-const getSingleAcademicDept = async (
-  id: string,
-): Promise<IAcademicDept | null> => {
+const getAcademicDept = async (id: string): Promise<IAcademicDept | null> => {
   const result = await AcademicDept.findById(id);
 
   return result;
@@ -80,6 +80,17 @@ const updateAcademicDept = async (
   id: string,
   payload: Partial<IAcademicDept>,
 ): Promise<IAcademicDept | null> => {
+  // Check if the title is unique
+  if (payload.title) {
+    const isUniqueTitle = await AcademicDept.findOne({
+      title: payload.title,
+    });
+    if (isUniqueTitle) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'This title already exists!');
+    }
+  }
+
+  // Update the academic department document
   const result = await AcademicDept.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
@@ -98,7 +109,7 @@ const deleteAcademicDept = async (
 export const AcademicDeptServices = {
   createAcademicDept,
   getAllAcademicDepts,
-  getSingleAcademicDept,
+  getAcademicDept,
   updateAcademicDept,
   deleteAcademicDept,
 };

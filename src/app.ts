@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
@@ -6,9 +7,9 @@ import routes from './app/routes';
 
 const app: Application = express();
 
+// parser and middleware
 app.use(cors());
-
-// parser | middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

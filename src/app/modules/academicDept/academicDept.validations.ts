@@ -12,18 +12,20 @@ const createAcademicDeptZodSchema = z.object({
 });
 
 const updateAcademicDeptZodSchema = z.object({
-  body: z.object({
-    title: z
-      .string({
-        required_error: 'Academic department title must be provided',
-      })
-      .optional(),
-    academicFaculty: z
-      .string({
-        required_error: 'Academic faculty must be provided',
-      })
-      .optional(),
-  }),
+  body: z
+    .object({
+      title: z
+        .string({
+          required_error: 'Academic department title must be provided',
+        })
+        .optional(),
+      academicFaculty: z
+        .string({
+          required_error: 'Academic faculty must be provided',
+        })
+        .optional(),
+    })
+    .strict(),
 });
 
 export const AcademicDeptValidations = {

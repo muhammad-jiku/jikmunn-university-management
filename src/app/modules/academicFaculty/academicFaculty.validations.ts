@@ -9,11 +9,13 @@ const createAcademicFacultyZodSchema = z.object({
 });
 
 const updateAcademicFacultyZodSchema = z.object({
-  body: z.object({
-    title: z.string({
-      required_error: 'Academic faculty title must be provided!',
-    }),
-  }),
+  body: z
+    .object({
+      title: z.string({
+        required_error: 'Academic faculty title must be provided!',
+      }),
+    })
+    .strict(),
 });
 
 export const AcademicFacultyValidations = {
