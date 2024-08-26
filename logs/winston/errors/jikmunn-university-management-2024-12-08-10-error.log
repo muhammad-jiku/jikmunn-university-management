@@ -1,3 +1,0 @@
-Mon Aug 12 2024 10:49:32 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Student validation failed: academicSem: Path `academicSem` is required., academicDept: Path `academicDept` is required.
-Mon Aug 12 2024 10:57:0 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Student not found !
-Mon Aug 12 2024 10:57:35 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Attempted illegal state transition from [TRANSACTION_ABORTED] to [TRANSACTION_COMMITTED]

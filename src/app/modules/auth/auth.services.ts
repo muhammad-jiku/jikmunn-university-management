@@ -1,10 +1,11 @@
 import httpStatus from 'http-status';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import { User } from '../users/users.model';
 import {
+  IChangePassword,
   ILoginUser,
   ILoginUserResponse,
   IRefreshTokenResponse,
@@ -93,7 +94,72 @@ const refreshTokenHandler = async (
   };
 };
 
+const changePassword = async (
+  user: JwtPayload | null,
+  payload: IChangePassword,
+): Promise<void> => {
+  const { oldPassword, newPassword } = payload;
+
+  // checking is user exist
+  // Formula:I:
+  // const isUserExist = await User.isUserExist(user?.userId);
+
+  // Alternative way: Formula: II:
+  const isUserExist = await User.findOne({ id: user?.userId }).select(
+    '+password',
+  );
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist!');
+  }
+
+  // checking old password
+  if (
+    isUserExist.password &&
+    !(await User.isPasswordMatch(oldPassword, isUserExist.password))
+  ) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Old Password is incorrect');
+  }
+
+  // checking new password
+  if (
+    isUserExist.password &&
+    (await User.isPasswordMatch(newPassword, isUserExist.password))
+  ) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      'This password already exists, please try new one!',
+    );
+  }
+
+  // // part of the Formula: I:(
+  // // hash password before saving
+  // const newHashedPassword = await bcrypt.hash(
+  //   newPassword,
+  //   Number(config.bcrypt_salt_rounds),
+  // );
+
+  // const query = { id: user?.userId };
+  // const updatedData = {
+  //   password: newHashedPassword,
+  //   needsPasswordChange: false,
+  //   passwordChangedAt: new Date(),
+  // };
+
+  // // data update
+  // await User.findOneAndUpdate(query, updatedData, { new: true });)
+
+  // part of the Formula: II:(
+  // data update
+  isUserExist.password = newPassword;
+  isUserExist.needsPasswordChange = false;
+
+  // updating using save()
+  isUserExist.save();
+  // )
+};
+
 export const AuthServices = {
   loginUser,
   refreshTokenHandler,
+  changePassword,
 };

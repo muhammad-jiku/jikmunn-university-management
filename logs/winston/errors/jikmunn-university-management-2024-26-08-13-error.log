@@ -1,0 +1,8 @@
+Mon Aug 26 2024 13:31:55 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: This password already exists, please try new one!
+Mon Aug 26 2024 13:35:25 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Old Password is incorrect
+Mon Aug 26 2024 13:36:38 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Failed to connect database querySrv ETIMEOUT _mongodb._tcp.cluster0.6rsncv0.mongodb.net
+Mon Aug 26 2024 13:36:48 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Failed to connect database querySrv ECONNREFUSED _mongodb._tcp.cluster0.6rsncv0.mongodb.net
+Mon Aug 26 2024 13:37:32 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Failed to connect database querySrv ETIMEOUT _mongodb._tcp.cluster0.6rsncv0.mongodb.net
+Mon Aug 26 2024 13:38:45 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: This password already exists, please try new one!
+Mon Aug 26 2024 13:40:28 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Old Password is incorrect
+Mon Aug 26 2024 13:41:1 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Password mismatched!
