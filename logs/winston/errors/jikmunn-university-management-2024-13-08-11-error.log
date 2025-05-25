@@ -1,3 +1,0 @@
-Tue Aug 13 2024 11:21:16 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: E11000 duplicate key error collection: dataStorage.admins index: email_1 dup key: { email: "kkhoward@gmail.com" }
-Tue Aug 13 2024 11:33:41 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Admin not found !
-Tue Aug 13 2024 11:34:31 } [JIKMUNN-UNIVERSITY-MANAGEMENT] error: Admin not found !
