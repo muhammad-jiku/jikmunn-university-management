@@ -12,7 +12,7 @@ router
   .post(
     validateRequest(AcademicSemValidations.createAcademicSemZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
-    AcademicSemControllers.createAcademicSem,
+    AcademicSemControllers.insertIntoDB,
   );
 
 router
@@ -24,18 +24,26 @@ router
       USER_ROLES.FACULTY,
       USER_ROLES.STUDENT,
     ),
-    AcademicSemControllers.getAcademicSem,
+    AcademicSemControllers.getByIdFromDB,
   )
   .patch(
     validateRequest(AcademicSemValidations.updateAcademicSemZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
-    AcademicSemControllers.updateAcademicSem,
+    AcademicSemControllers.updateOneInDB,
   )
   .delete(
-    auth(USER_ROLES.SUPER_ADMIN),
-    AcademicSemControllers.deleteAcademicSem,
+    auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
+    AcademicSemControllers.deleteOneFromDB,
   );
 
-router.route('/').get(AcademicSemControllers.getAllAcademicSems);
+router.route('/').get(
+  // auth(
+  //    USER_ROLES.SUPER_ADMIN,
+  //    USER_ROLES.ADMIN,
+  //    USER_ROLES.FACULTY,
+  //    USER_ROLES.STUDENT
+  // ),
+  AcademicSemControllers.getAllFromDB,
+);
 
 export const AcademicSemRoutes = router;

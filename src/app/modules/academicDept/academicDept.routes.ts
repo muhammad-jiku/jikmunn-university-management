@@ -12,22 +12,30 @@ router
   .post(
     validateRequest(AcademicDeptValidations.createAcademicDeptZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
-    AcademicDeptControllers.createAcademicDept,
+    AcademicDeptControllers.insertIntoDB,
   );
 
 router
   .route('/:id')
-  .get(AcademicDeptControllers.getAcademicDept)
+  .get(AcademicDeptControllers.getByIdFromDB)
   .patch(
     validateRequest(AcademicDeptValidations.updateAcademicDeptZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
-    AcademicDeptControllers.updateAcademicDept,
+    AcademicDeptControllers.updateOneInDB,
   )
   .delete(
     auth(USER_ROLES.SUPER_ADMIN),
-    AcademicDeptControllers.deleteAcademicDept,
+    AcademicDeptControllers.deleteOneFromDB,
   );
 
-router.route('/').get(AcademicDeptControllers.getAllAcademicDepts);
+router.route('/').get(
+  // auth(
+  //    USER_ROLES.SUPER_ADMIN,
+  //    USER_ROLES.ADMIN,
+  //    USER_ROLES.FACULTY,
+  //    USER_ROLES.STUDENT
+  // ),
+  AcademicDeptControllers.getAllFromDB,
+);
 
 export const AcademicDeptRoutes = router;

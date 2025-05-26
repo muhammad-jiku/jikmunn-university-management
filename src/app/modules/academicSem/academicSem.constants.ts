@@ -35,11 +35,16 @@ export const academicSemTitleCodeMapper: {
   Fall: '03',
 };
 
-export const academicSemSearchableFields: string[] = ['title', 'code', 'year'];
+export const academicSemSearchableFields = ['title', 'code', 'year'];
 
-export const academicSemFilterableFields: string[] = [
+export const academicSemFilterableFields = [
   'searchTerm',
   'title',
   'code',
   'year',
+  'syncId',
 ];
+
+export const EVENT_ACADEMIC_SEM_CREATED = 'academic-sem.created';
+export const EVENT_ACADEMIC_SEM_UPDATED = 'academic-sem.updated';
+export const EVENT_ACADEMIC_SEM_DELETED = 'academic-sem.deleted';

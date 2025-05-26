@@ -10,27 +10,34 @@ const router = express.Router();
 router
   .route('/create')
   .post(
-    validateRequest(AcademicFacultyValidations.createAcademicFacultyZodSchema),
+    validateRequest(AcademicFacultyValidations.createFacultyZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN),
-    AcademicFacultyControllers.createAcademicFaculty,
+    AcademicFacultyControllers.insertIntoDB,
   );
 
 router
   .route('/:id')
   .get(
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
-    AcademicFacultyControllers.getAcademicFaculty,
+    AcademicFacultyControllers.getByIdFromDB,
   )
   .patch(
-    validateRequest(AcademicFacultyValidations.updateAcademicFacultyZodSchema),
+    validateRequest(AcademicFacultyValidations.updatefacultyZodSchema),
     auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.FACULTY),
-    AcademicFacultyControllers.updateAcademicFaculty,
+    AcademicFacultyControllers.updateOneInDB,
   )
   .delete(
     auth(USER_ROLES.SUPER_ADMIN),
-    AcademicFacultyControllers.deleteAcademicFaculty,
+    AcademicFacultyControllers.deleteOneFromDB,
   );
 
-router.route('/').get(AcademicFacultyControllers.getAllAcademicFaculties);
+router.route('/').get(
+  // auth(
+  //   USER_ROLES.SUPER_ADMIN,
+  //   USER_ROLES.ADMIN,
+  //   USER_ROLES.FACULTY
+  // ),
+  AcademicFacultyControllers.getAllFromDB,
+);
 
 export const AcademicFacultyRoutes = router;

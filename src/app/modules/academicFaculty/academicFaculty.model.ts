@@ -4,21 +4,31 @@ import {
   IAcademicFacultyModel,
 } from './academicFaculty.interfaces';
 
-const academicFacultySchema = new Schema<IAcademicFaculty>(
+const academicFacultySchema = new Schema<
+  IAcademicFaculty,
+  IAcademicFacultyModel
+>(
   {
     title: {
       type: String,
       required: true,
       unique: true,
     },
+    syncId: {
+      type: String,
+      required: false,
+      unique: true,
+    },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 
-export const AcademicFaculty: IAcademicFacultyModel = model<
-  IAcademicFaculty,
-  IAcademicFacultyModel
->('AcademicFaculty', academicFacultySchema);
+export const AcademicFaculty = model<IAcademicFaculty, IAcademicFacultyModel>(
+  'AcademicFaculty',
+  academicFacultySchema,
+);

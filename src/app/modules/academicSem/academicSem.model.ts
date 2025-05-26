@@ -8,7 +8,7 @@ import {
 } from './academicSem.constants';
 import { IAcademicSem, IAcademicSemModel } from './academicSem.interfaces';
 
-const academicSemSchema = new Schema<IAcademicSem>(
+const academicSemSchema = new Schema<IAcademicSem, IAcademicSemModel>(
   {
     title: {
       type: String,
@@ -16,7 +16,7 @@ const academicSemSchema = new Schema<IAcademicSem>(
       enum: academicSemTitles,
     },
     year: {
-      type: String,
+      type: Number,
       required: true,
     },
     code: {
@@ -34,10 +34,16 @@ const academicSemSchema = new Schema<IAcademicSem>(
       required: true,
       enum: academicSemMonths,
     },
+    syncId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 
@@ -46,19 +52,21 @@ academicSemSchema.pre('save', async function (next) {
     title: this.title,
     year: this.year,
   });
-
   console.log(isExist);
   if (isExist) {
     throw new ApiError(
       httpStatus.CONFLICT,
-      'Academic semester is already exist !',
+      'Academic semester is already exist!',
     );
   }
-
   next();
 });
 
-export const AcademicSem: IAcademicSemModel = model<
-  IAcademicSem,
-  IAcademicSemModel
->('AcademicSem', academicSemSchema);
+// export const AcademicSem: IAcademicSemModel = model<IAcademicSem>(
+//   'AcademicSem',
+//   academicSemSchema,
+// );
+export const AcademicSem = model<IAcademicSem, IAcademicSemModel>(
+  'AcademicSem',
+  academicSemSchema,
+);
