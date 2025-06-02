@@ -20,7 +20,7 @@ export type IAcademicSemCodes = '01' | '02' | '03';
 
 export type IAcademicSem = {
   title: IAcademicSemTitles;
-  year: number;
+  year: string;
   code: IAcademicSemCodes;
   startMonth: IAcademicSemMonths;
   endMonth: IAcademicSemMonths;

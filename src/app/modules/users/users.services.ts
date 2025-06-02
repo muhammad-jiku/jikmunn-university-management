@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
+import { RedisClient } from '../../../shared/redis';
 import { IAcademicSem } from '../academicSem/academicSem.interfaces';
 import { AcademicSem } from '../academicSem/academicSem.model';
 import { IAdmin } from '../admin/admin.interfaces';
@@ -10,6 +11,10 @@ import { IFaculty } from '../faculty/faculty.interfaces';
 import { Faculty } from '../faculty/faculty.model';
 import { IStudent } from '../students/students.interfaces';
 import { Student } from '../students/students.model';
+import {
+  EVENT_FACULTY_CREATED,
+  EVENT_STUDENT_CREATED,
+} from './users.constants';
 import { IUser } from './users.interfaces';
 import { User } from './users.model';
 import {
@@ -73,11 +78,24 @@ const createStudent = async (
     newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
       path: 'student',
       populate: [
-        { path: 'academicSem' },
-        { path: 'academicDept' },
-        { path: 'academicFaculty' },
+        {
+          path: 'academicSem',
+        },
+        {
+          path: 'academicDept',
+        },
+        {
+          path: 'academicFaculty',
+        },
       ],
     });
+  }
+
+  if (newUserAllData) {
+    await RedisClient.publish(
+      EVENT_STUDENT_CREATED,
+      JSON.stringify(newUserAllData.student),
+    );
   }
 
   return newUserAllData;
@@ -135,8 +153,22 @@ const createFaculty = async (
   if (newUserAllData) {
     newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
       path: 'faculty',
-      populate: [{ path: 'academicDept' }, { path: 'academicFaculty' }],
+      populate: [
+        {
+          path: 'academicDept',
+        },
+        {
+          path: 'academicFaculty',
+        },
+      ],
     });
+  }
+
+  if (newUserAllData) {
+    await RedisClient.publish(
+      EVENT_FACULTY_CREATED,
+      JSON.stringify(newUserAllData.faculty),
+    );
   }
 
   return newUserAllData;
@@ -194,7 +226,11 @@ const createAdmin = async (
   if (newUserAllData) {
     newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
       path: 'admin',
-      populate: [{ path: 'managementDept' }],
+      populate: [
+        {
+          path: 'managementDept',
+        },
+      ],
     });
   }
 

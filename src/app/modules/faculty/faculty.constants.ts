@@ -32,3 +32,5 @@ export const facultyFilterableFields = [
   'academicDept',
   'designation',
 ];
+
+export const EVENT_FACULTY_UPDATED = 'faculty.updated';

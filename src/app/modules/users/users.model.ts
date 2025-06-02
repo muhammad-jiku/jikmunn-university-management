@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 import config from '../../../config';
 import { IUser, IUserModel } from './users.interfaces';
 
-//   // schema pattern for instance methods
+// // schema pattern for instance methods
 // const userSchema = new Schema<IUser, Record<string, never>, IUserMethods>(
 // schema pattern for statics methods
 const userSchema = new Schema<IUser, IUserModel>(

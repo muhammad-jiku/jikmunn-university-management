@@ -16,7 +16,7 @@ const academicSemSchema = new Schema<IAcademicSem, IAcademicSemModel>(
       enum: academicSemTitles,
     },
     year: {
-      type: Number,
+      type: String,
       required: true,
     },
     code: {
