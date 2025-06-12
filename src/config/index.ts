@@ -24,4 +24,13 @@ export default {
     url: process.env.REDIS_URL,
     expires_in: process.env.REDIS_TOKEN_EXPIRES_IN,
   },
+  smtp: {
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    username: process.env.SMTP_USERNAME,
+    password: process.env.SMTP_PASSWORD,
+    sender: process.env.SMTP_SENDER, // Using the same email as sender
+  },
+  frontend_url: process.env.FRONTEND_URL,
+  reset_link: process.env.RESET_PASS_UI_LINK,
 };

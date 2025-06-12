@@ -1,8 +1,13 @@
+import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
+import { USER_ROLES } from '../../../enums/users';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
+import { Admin } from '../admin/admin.model';
+import { Faculty } from '../faculty/faculty.model';
+import { Student } from '../students/students.model';
 import { User } from '../users/users.model';
 import {
   IChangePassword,
@@ -10,6 +15,7 @@ import {
   ILoginUserResponse,
   IRefreshTokenResponse,
 } from './auth.interfaces';
+import { sendEmail } from './auth.utils';
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { id, password } = payload;
@@ -31,14 +37,14 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   // Formula:II: using of statics methods by importing the User model
   const isUserExist = await User.isUserExist(id);
   if (!isUserExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist!');
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
   }
 
   if (
     isUserExist.password &&
     !(await User.isPasswordMatch(password, isUserExist?.password as string))
   ) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password mismatched!');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect!');
   }
 
   const { id: userId, role, needsPasswordChange } = isUserExist;
@@ -63,34 +69,39 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   };
 };
 
-const refreshTokenHandler = async (
-  payload: string,
-): Promise<IRefreshTokenResponse> => {
-  // verify that the refresh token
+const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
+  // verify token
+  // invalid token - synchronous
   let verifiedToken = null;
   try {
     verifiedToken = jwtHelpers.verifyToken(
-      payload,
+      token,
       config.jwt.refresh_secret as Secret,
     );
   } catch (err) {
-    throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
+    throw new ApiError(httpStatus.FORBIDDEN, 'Invalid refresh token!');
   }
 
   const { userId, role } = verifiedToken;
+
+  // checking deleted user's refresh token
   const isUserExist = await User.isUserExist(userId);
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist!');
   }
 
-  const newAccesToken = jwtHelpers.createToken(
-    { userId, role },
+  // generate new token
+  const newAccessToken = jwtHelpers.createToken(
+    {
+      userId,
+      role,
+    },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string,
   );
 
   return {
-    accessToken: newAccesToken,
+    accessToken: newAccessToken,
   };
 };
 
@@ -108,6 +119,7 @@ const changePassword = async (
   const isUserExist = await User.findOne({ id: user?.userId }).select(
     '+password',
   );
+
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist!');
   }
@@ -148,18 +160,92 @@ const changePassword = async (
   // // data update
   // await User.findOneAndUpdate(query, updatedData, { new: true });)
 
-  // part of the Formula: II:(
+  // part of the Formula: II:
   // data update
   isUserExist.password = newPassword;
   isUserExist.needsPasswordChange = false;
 
   // updating using save()
   isUserExist.save();
-  // )
+};
+
+const forgotPass = async (payload: { id: string }) => {
+  const user = await User.findOne({ id: payload.id }, { id: 1, role: 1 });
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist!');
+  }
+
+  let profile = null;
+  if (user.role === USER_ROLES.ADMIN) {
+    profile = await Admin.findOne({ id: user.id });
+  } else if (user.role === USER_ROLES.FACULTY) {
+    profile = await Faculty.findOne({ id: user.id });
+  } else if (user.role === USER_ROLES.STUDENT) {
+    profile = await Student.findOne({ id: user.id });
+  }
+
+  if (!profile) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Pofile not found!');
+  }
+
+  if (!profile.email) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email not found!');
+  }
+
+  const passResetToken = await jwtHelpers.createResetToken(
+    { id: user.id },
+    config.jwt.secret as string,
+    '50m',
+  );
+
+  const resetLink: string = config.reset_link + `token=${passResetToken}`;
+
+  console.log('profile: ', profile);
+  await sendEmail(
+    profile.email,
+    `
+      <div>
+        <p>Hi, ${profile.name.firstName}</p>
+        <p>Your password reset link: <a href=${resetLink}>Click Here</a></p>
+        <p>Thank you</p>
+      </div>
+  `,
+  );
+
+  // return {
+  //   message: "Check your email!"
+  // }
+};
+
+const resetPassword = async (
+  payload: { id: string; newPassword: string },
+  token: string,
+) => {
+  const { id, newPassword } = payload;
+  const user = await User.findOne({ id }, { id: 1 });
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User not found!');
+  }
+
+  const isVarified = await jwtHelpers.verifyToken(
+    token,
+    config.jwt.secret as string,
+  );
+
+  const password = await bcrypt.hash(
+    newPassword,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  await User.updateOne({ id }, { password });
 };
 
 export const AuthServices = {
   loginUser,
-  refreshTokenHandler,
+  refreshToken,
   changePassword,
+  forgotPass,
+  resetPassword,
 };

@@ -29,7 +29,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 
 const refreshTokenHandler = catchAsync(async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
-  const result = await AuthServices.refreshTokenHandler(refreshToken);
+  const result = await AuthServices.refreshToken(refreshToken);
 
   // set refresh token into the cookie
   const cookieOptions = {
@@ -60,8 +60,31 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const forgotPass = catchAsync(async (req: Request, res: Response) => {
+  await AuthServices.forgotPass(req.body);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Check your email!',
+  });
+});
+
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const token = req.headers.authorization || '';
+  await AuthServices.resetPassword(req.body, token);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Account recovered!',
+  });
+});
+
 export const AuthControllers = {
   loginUser,
   refreshTokenHandler,
   changePassword,
+  forgotPass,
+  resetPassword,
 };

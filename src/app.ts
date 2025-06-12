@@ -7,8 +7,24 @@ import routes from './app/routes';
 
 const app: Application = express();
 
+// TRUST PROXY – must come before any rate-limit or CORS
+// On Vercel you generally trust the first proxy hop:
+app.set('trust proxy', 1);
+
 // parser and middleware
-app.use(cors());
+// cors options
+// This is a simple CORS configuration.
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === 'production'
+      ? [process.env.FRONTEND_URL as string]
+      : 'http://localhost:3000',
+  credentials: true, // Important for cookies
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

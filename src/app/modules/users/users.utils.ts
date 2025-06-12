@@ -16,7 +16,8 @@ export const generateStudentId = async (
     (await findLastStudentId()) || (0).toString().padStart(5, '0');
 
   let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
-  incrementedId = `${academicSem?.year.substring(2)}${academicSem?.code}${incrementedId}`;
+  // incrementedId = `${academicSem?.year.substring(2)}${academicSem?.code}${incrementedId}`;
+  incrementedId = `${academicSem.year}${academicSem.code}${incrementedId}`;
 
   return incrementedId;
 };
