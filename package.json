@@ -96,9 +96,10 @@
     "typescript-eslint": "^7.13.0"
   },
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "dev": "tsc --watch",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build:dev": "tsc --watch",
     "build": "tsc",
+    "start": "node ./dist/server.js",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
